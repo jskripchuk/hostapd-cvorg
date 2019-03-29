@@ -256,6 +256,8 @@ struct sae_password_entry {
  * struct hostapd_bss_config - Per-BSS configuration
  */
 struct hostapd_bss_config {
+	int cvorg;
+
 	char iface[IFNAMSIZ + 1];
 	char bridge[IFNAMSIZ + 1];
 	char vlan_bridge[IFNAMSIZ + 1];

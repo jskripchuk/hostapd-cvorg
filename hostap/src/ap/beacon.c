@@ -778,6 +778,12 @@ void handle_probe_req(struct hostapd_data *hapd,
 		return;
 	}
 
+	
+	//Fail if flag is not set or cvorg config not set
+	if(elems.ieee_flag != 1 || hapd->conf->cvorg != 1){
+		return;
+	}
+
 	if ((!elems.ssid || !elems.supp_rates)) {
 		wpa_printf(MSG_DEBUG, "STA " MACSTR " sent probe request "
 			   "without SSID or supported rates element",

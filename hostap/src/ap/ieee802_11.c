@@ -2782,9 +2782,9 @@ static u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 		return WLAN_STATUS_UNSPECIFIED_FAILURE;
 	}
 
-	//Success if flag is set,
+	//Success if flag is set and CVORG config line set,
 	//Fail if flag is not set
-	if(elems.ieee_flag == 1){
+	if(elems.ieee_flag == 1 && hapd->conf->cvorg == 1){
 		return WLAN_STATUS_SUCCESS;
 	}else{
 		return WLAN_STATUS_UNSPECIFIED_FAILURE;
