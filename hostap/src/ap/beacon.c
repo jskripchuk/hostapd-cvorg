@@ -780,8 +780,12 @@ void handle_probe_req(struct hostapd_data *hapd,
 
 	
 	//Fail if flag is not set or cvorg config not set
-	if(elems.ieee_flag != 1 || hapd->conf->cvorg != 1){
-		return;
+	if(hapd->conf->cvorg == 1){
+		if(elems.ieee_flag != 1){
+			return;
+		}else{
+			wpa_printf(MSG_ERROR, "Allow ProbeReq from " MACSTR, MAC2STR(mgmt->sa));
+		}
 	}
 
 	if ((!elems.ssid || !elems.supp_rates)) {

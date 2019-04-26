@@ -256,7 +256,12 @@ struct sae_password_entry {
  * struct hostapd_bss_config - Per-BSS configuration
  */
 struct hostapd_bss_config {
-	int cvorg;
+	int require_iec15118_8_assoc;
+	int require_iec15118_8_probe_req;
+	int require_iec15118_8_ett_value;
+
+
+
 
 	char iface[IFNAMSIZ + 1];
 	char bridge[IFNAMSIZ + 1];

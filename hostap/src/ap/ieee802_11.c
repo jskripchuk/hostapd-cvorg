@@ -2784,10 +2784,14 @@ static u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 
 	//Success if flag is set and CVORG config line set,
 	//Fail if flag is not set
-	if(elems.ieee_flag == 1 && hapd->conf->cvorg == 1){
-		return WLAN_STATUS_SUCCESS;
-	}else{
-		return WLAN_STATUS_UNSPECIFIED_FAILURE;
+	if (hapd->conf->require_iec15118_8_assoc == 1) {
+		if(elems.ieee_flag != 1) {
+			return WLAN_STATUS_UNSPECIFIED_FAILURE;
+		}
+		else {
+			hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
+			       HOSTAPD_LEVEL_WARNING, "Allow Assocation Request from");
+		}
 	}
 
 	resp = check_ssid(hapd, sta, elems.ssid, elems.ssid_len);
