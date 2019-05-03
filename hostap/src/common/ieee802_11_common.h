@@ -95,8 +95,9 @@ struct ieee802_11_elems {
 	const u8 *multi_ap;
 	const u8 *he_capabilities;
 
-	//Flag 
-	u8 ieee_flag;
+	//Flag
+	u8 vse_iso15118_8_flag;
+	u8 vse_iso15118_8_ett;
 
 	u8 ssid_len;
 	u8 supp_rates_len;

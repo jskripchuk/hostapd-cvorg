@@ -2777,20 +2777,27 @@ static u16 check_assoc_ies(struct hostapd_data *hapd, struct sta_info *sta,
 
 	if (ieee802_11_parse_elems(ies, ies_len, &elems, 1) == ParseFailed) {
 		hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
-			       HOSTAPD_LEVEL_INFO, "Station sent an invalid "
-			       "association request");
+					HOSTAPD_LEVEL_INFO, "Station sent an invalid "
+					"association request");
 		return WLAN_STATUS_UNSPECIFIED_FAILURE;
 	}
 
 	//Success if flag is set and CVORG config line set,
 	//Fail if flag is not set
 	if (hapd->conf->require_iec15118_8_assoc == 1) {
-		if(elems.ieee_flag != 1) {
+		if (elems.vse_iso15118_8_flag != 1) {
 			return WLAN_STATUS_UNSPECIFIED_FAILURE;
 		}
 		else {
-			hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
-			       HOSTAPD_LEVEL_WARNING, "Allow Assocation Request from");
+			if (elems.vse_iso15118_8_ett & hapd->conf->require_iec15118_8_ett_value) {
+				hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
+					HOSTAPD_LEVEL_WARNING, "Allow Assocation Request from");
+			}
+			else {
+				hostapd_logger(hapd, sta->addr, HOSTAPD_MODULE_IEEE80211,
+						HOSTAPD_LEVEL_INFO, "Invalid ett- fix your car");
+				return WLAN_STATUS_UNSPECIFIED_FAILURE;
+			}
 		}
 	}
 

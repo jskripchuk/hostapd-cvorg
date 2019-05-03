@@ -37,14 +37,17 @@ static int ieee802_11_parse_vendor_specific(const u8 *pos, size_t elen,
 
 	oui = WPA_GET_BE24(pos);
 
-	elems->ieee_flag = 0;
+	elems->vse_iso15118_8_flag = 0;
 
 	switch (oui) {
 	case 0x70B3D5:
 		//IEEE Standard
-		elems->ieee_flag = 1;
+		if (elen >= 0x11 && elen <= 0xFF) {
+			elems->vse_iso15118_8_ett = pos[6];
+			elems->vse_iso15118_8_flag = 1;
+		}
 
-		break;	
+		break;
 	case OUI_MICROSOFT:
 		/* Microsoft/Wi-Fi information elements are further typed and
 		 * subtyped */

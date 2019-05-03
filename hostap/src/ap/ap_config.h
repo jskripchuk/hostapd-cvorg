@@ -258,7 +258,7 @@ struct sae_password_entry {
 struct hostapd_bss_config {
 	int require_iec15118_8_assoc;
 	int require_iec15118_8_probe_req;
-	int require_iec15118_8_ett_value;
+	u8 require_iec15118_8_ett_value;
 
 
 

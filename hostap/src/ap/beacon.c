@@ -778,10 +778,10 @@ void handle_probe_req(struct hostapd_data *hapd,
 		return;
 	}
 
-	
-	//Fail if flag is not set or cvorg config not set
-	if(hapd->conf->cvorg == 1){
-		if(elems.ieee_flag != 1){
+
+	//Fail if flag is not set or require_iec15118_8_probe_req config not set
+	if(hapd->conf->require_iec15118_8_probe_req == 1){
+		if(elems.vse_iso15118_8_flag != 1){
 			return;
 		}else{
 			wpa_printf(MSG_ERROR, "Allow ProbeReq from " MACSTR, MAC2STR(mgmt->sa));
